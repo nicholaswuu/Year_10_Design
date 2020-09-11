@@ -9,13 +9,10 @@ for w in wordList:
 
 print(numList[0:5])
 print(wordList[4:])
-
 print(len(numList))
 
 wordList.append("black")
-
 print(wordList)
 
 wordList.remove("black")
-
 print(wordList)
