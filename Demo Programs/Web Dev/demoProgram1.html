@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		table, td {
+		  	border: 1px solid black;
+		}
+		#table{
+			display: none;
+		}
+		#animals{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+<p> Hold command to select multiple animals</p>
+<button onclick = "show()">Choose an Animal:</button>
+<select name="animals" id="animals" multiple>
+  <option value="Dog">Dog</option>
+  <option value="Cat">Cat</option>
+</select>
+<button onclick = "selectedVal()">Choose</button>
+<br><br>
+<table id = "table">
+	<tr>
+		<th>Name</th>
+		<th>Animal</th>
+		<th>Colour</th>
+	</tr>
+</table>
+
+</body>
+<script>
+	function show(){
+		if(document.getElementById("animals").style.display === "none"){
+			document.getElementById("animals").style.display = "block"
+		} 
+		else{
+			document.getElementById("animals").style.display = "none"
+		}
+	}
+	function selectedVal(){
+		var select = document.getElementById("animals").value;
+		for(i=0; i<4; i++){
+			if(dictionary[i]["animal"] == document.getElementById("animals").value){
+				table = document.getElementById("table")
+				table.style.display = "block"
+				var row = table.insertRow()
+				var nameCell = row.insertCell(0)
+				var animalCell = row.insertCell(1)
+				var colourCell = row.insertCell(2)
+				nameCell.innerHTML = dictionary[i]["name"]
+				animalCell.innerHTML = dictionary[i]["animal"]
+				colourCell.innerHTML = dictionary[i]["colour"]
+			}
+		}
+	}
+	var dictionary = [{"name": "Garfield", "animal": "Cat", "colour": "Orange"}, {"name": "Scooby", "animal": "Dog","colour": "Brown"}, {"name": "Tom", "animal": "Cat", "colour": "Grey"}, {"name": "Brian", "animal": "Dog", "colour": "White"}]
+</script>
+
+</html>
