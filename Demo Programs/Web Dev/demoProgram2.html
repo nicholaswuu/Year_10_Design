@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo 2</title>
+	<style>
+		th, td {
+		  	border-bottom: 1px solid black;
+		  	padding: 10px;
+		 	text-align: left;
+		}
+		table{
+			width: 100%;
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+<body>
+
+<button onclick = "sort()">Sort</button>
+
+<table id = "table">
+	<tr>
+		<th>Rank</th>
+		<th>Name</th>
+		<th>Animal</th>
+		<th>Colour</th>
+	</tr>
+</table>
+
+</body>
+<script>
+	var dictionary = [{"name": "Garfield", "animal": "Cat", "colour": "Orange", "rank": 4}, {"name": "Scooby", "animal": "Dog","colour": "Brown", "rank": 3}, {"name": "Tom", "animal": "Cat", "colour": "Grey", "rank": 1}, {"name": "Brian", "animal": "Dog", "colour": "White", "rank": 2}]
+	console.log(dictionary)
+	for(i=0; i<dictionary.length; i++){
+		var table = document.getElementById('table')
+		var row = table.insertRow()
+		var rankCell = row.insertCell(0)
+		var nameCell = row.insertCell(1)
+		var animalCell = row.insertCell(2)
+		var colourCell = row.insertCell(3)
+		rankCell.innerHTML = dictionary[i]["rank"]
+		nameCell.innerHTML = dictionary[i]["name"]
+		animalCell.innerHTML = dictionary[i]["animal"]
+		colourCell.innerHTML = dictionary[i]["colour"]
+	}
+
+	function sort(){
+		dictionary.sort(function (a, b) {
+			return a.rank - b.rank;
+		});
+		console.log(dictionary)
+		createTable()
+	}
+	function createTable(){
+		oldTable = document.getElementById('table');
+		if(oldTable!=null)
+			oldTable.parentNode.removeChild(oldTable);
+		var body = document.getElementsByTagName('body')[0];
+  		var table = document.createElement('table');
+  		table.id = "table";
+		var thead = table.createTHead();
+		var row = thead.insertRow();
+		var th = document.createElement("th");
+	    var text = document.createTextNode("Rank");
+	    th.appendChild(text);
+	    row.appendChild(th);
+		var th = document.createElement("th");
+	    var text = document.createTextNode("Name");
+	    th.appendChild(text);
+	    row.appendChild(th);
+	    var th = document.createElement("th");
+	    var text = document.createTextNode("Animal");
+	    th.appendChild(text);
+	    row.appendChild(th);
+	    var th = document.createElement("th");
+	    var text = document.createTextNode("Colour");
+	    th.appendChild(text);
+	    row.appendChild(th);
+		body.appendChild(table);
+		for(i=0; i<dictionary.length; i++){
+			var row = table.insertRow()
+			var rankCell = row.insertCell(0)
+			var nameCell = row.insertCell(1)
+			var animalCell = row.insertCell(2)
+			var colourCell = row.insertCell(3)
+			rankCell.innerHTML = dictionary[i]["rank"]
+			nameCell.innerHTML = dictionary[i]["name"]
+			animalCell.innerHTML = dictionary[i]["animal"]
+			colourCell.innerHTML = dictionary[i]["colour"]
+		}
+	}
+</script>
+</html>

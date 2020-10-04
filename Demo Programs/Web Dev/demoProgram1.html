@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Demo 1</title>
 	<style>
 		 th, td {
 		  	border-bottom: 1px solid black;
@@ -22,6 +23,9 @@
 			padding: 10px;
 			position: fixed;
 			background-color: white;
+		}
+		#checkboxes:hover{
+			display: block;
 		}
 	</style>
 </head>
@@ -73,7 +77,6 @@
 		var dogSelected = document.getElementById("Dog").checked
 		table = document.getElementById("table")
 		table.style.display = "block"
-		console.log(table.rows.length)
 		if(catSelected == true){
 			for(j=0; j<dictionary.length; j++){
 				if(dictionary[j]["animal"] == "Cat"){
@@ -100,7 +103,6 @@
 				}
 			}
 		}
-		console.log(table.rows.length)
 	}
 	var dictionary = [{"name": "Garfield", "animal": "Cat", "colour": "Orange"}, {"name": "Scooby", "animal": "Dog","colour": "Brown"}, {"name": "Tom", "animal": "Cat", "colour": "Grey"}, {"name": "Brian", "animal": "Dog", "colour": "White"}]
 </script>
