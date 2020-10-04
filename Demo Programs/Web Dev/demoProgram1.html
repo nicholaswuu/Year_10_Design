@@ -13,6 +13,7 @@
 		}
 		#table{
 			display: none;
+			position: fixed;
 		}
 		#checkboxes{
 			display: none;
@@ -26,22 +27,38 @@
 </head>
 <body>
 <button onclick = "show()">Choose an Animal:</button>
+<button onclick = "selectedVal()">Choose</button>
 <div id = "checkboxes">
   <input type="checkbox" id="Cat" value="Cat">Cat<br>
   <input type="checkbox" id="Dog" value="Dog">Dog<br>
 </div>
-<button onclick = "selectedVal()">Choose</button>
-<br><br>
-<table id = "table">
-	<tr>
-		<th>Name</th>
-		<th>Animal</th>
-		<th>Colour</th>
-	</tr>
-</table>
+<br><br><br><br><br>
 
 </body>
 <script>
+	function createTable(){
+		oldTable = document.getElementById('table');
+		if(oldTable!=null)
+			oldTable.parentNode.removeChild(oldTable);
+		var body = document.getElementsByTagName('body')[0];
+  		var table = document.createElement('table');
+  		table.id = "table";
+		var thead = table.createTHead();
+		var row = thead.insertRow();
+		var th = document.createElement("th");
+	    var text = document.createTextNode("Name");
+	    th.appendChild(text);
+	    row.appendChild(th);
+	    var th = document.createElement("th");
+	    var text = document.createTextNode("Animal");
+	    th.appendChild(text);
+	    row.appendChild(th);
+	    var th = document.createElement("th");
+	    var text = document.createTextNode("Colour");
+	    th.appendChild(text);
+	    row.appendChild(th);
+		body.appendChild(table);
+	}
 	function show(){
 		if(document.getElementById("checkboxes").style.display === "none"){
 			document.getElementById("checkboxes").style.display = "block"
@@ -51,13 +68,11 @@
 		}
 	}
 	function selectedVal(){
+		createTable();
 		var catSelected = document.getElementById("Cat").checked
 		var dogSelected = document.getElementById("Dog").checked
 		table = document.getElementById("table")
 		table.style.display = "block"
-		for(i=1; i<table.rows.length; i++){
-			table.deleteRow(i)
-		}
 		console.log(table.rows.length)
 		if(catSelected == true){
 			for(j=0; j<dictionary.length; j++){
@@ -74,14 +89,14 @@
 		}
 		if(dogSelected == true){
 			for(j=0; j<dictionary.length; j++){
-				if(dictionary[j]["animal"] == "Dog"){
-					var row = table.insertRow()
-					var nameCell = row.insertCell(0)
-					var animalCell = row.insertCell(1)
-					var colourCell = row.insertCell(2)
-					nameCell.innerHTML = dictionary[j]["name"]
-					animalCell.innerHTML = dictionary[j]["animal"]
-					colourCell.innerHTML = dictionary[j]["colour"]
+			if(dictionary[j]["animal"] == "Dog"){
+				var row = table.insertRow()
+				var nameCell = row.insertCell(0)
+				var animalCell = row.insertCell(1)
+				var colourCell = row.insertCell(2)
+				nameCell.innerHTML = dictionary[j]["name"]
+				animalCell.innerHTML = dictionary[j]["animal"]
+				colourCell.innerHTML = dictionary[j]["colour"]
 				}
 			}
 		}
