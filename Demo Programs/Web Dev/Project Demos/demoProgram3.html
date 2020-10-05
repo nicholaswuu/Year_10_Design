@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo 3</title>
+	<style>
+		body{
+			background-color: black;
+			font-family: roboto;
+			color: white;
+		}
+		#genre{
+			text-align: left;
+			width: 90px;
+			padding: 4px;
+		}
+		#checkboxes{
+			z-index: 1;
+			border: 1px solid #333333;
+			color: white;
+			width: 10%;
+			padding: 10px;
+			position: fixed;
+			background-color: #111111;
+			font-size: 14px;
+		}
+		.ddown{
+			background-color: black;
+			color: white;
+			border: 2px solid white;
+			border-radius: 5px;
+			padding: 3px;
+		}
+		.ddown:hover{
+			background-color: #333333;
+		}
+		.check{
+			float: left;
+			font-size: 30px;
+			background-size: cover;
+			text-align: center;
+			margin: 5px;
+			display: block;
+			color: white;
+			opacity: 75%;
+			font-weight: bold;
+		}
+		.check:hover{
+			cursor: pointer;
+			opacity: 100%
+		}
+		#pop{
+			background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.teenstarcompetition.co.uk/wp-content/uploads/2020/04/Easy-songs-to-sing-that-sound-impressive--e1587138125666.jpeg);
+		}
+		#rock{
+			background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.thousandfoldecho.com/wp-content/uploads/2017/09/musician-2708190_1280-860x450.jpg);
+		}
+		#hiphop{
+			background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://flypaper.soundfly.com/wp-content/uploads/2018/09/uzi-vert-facebook.jpg);
+			background-position: center right;
+		}
+		#classical{
+			background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.mta.ca/uploadedImages/Community/Academics/Faculty_of_Arts/Music/Ensembles/Chamber_Orchestra/IMG_2865_lowres.jpg);
+			background-position: center 70%;
+		}
+	</style>
+</head>
+<body>
+
+<!--  –––––––––––––––––––––– GENRE DDOWN –––––––––––––––––––––– -->
+
+
+<button onclick="show()" id="genre" class="ddown">Genre <span style="padding-left: 35%">&#8744;</span></button>
+<div id="checkboxes" style="display: none;">
+	<input type="checkbox" id="Pop" name="Pop" value="Pop">
+	<label for="Pop">Pop</label><br>
+	<input type="checkbox" id="Rock" name="Rock" value="Rock">
+	<label for="Rock">Rock</label><br>
+	<input type="checkbox" id="HipHop" name="HipHop" value="HipHop">
+	<label for="HipHop">Hip Hop</label><br>
+	<input type="checkbox" id="R&B" name="R&B" value="R&B">
+	<label for="R&B">R&B</label><br>
+	<input type="checkbox" id="Jazz" name="Jazz" value="Jazz">
+	<label for="Jazz">Jazz</label><br>
+	<input type="checkbox" id="Classical" name="Classical" value="Classical">
+	<label for="Classical">Classical</label><br>
+	<input type="checkbox" id="Country" name="Country" value="Country">
+	<label for="Country">Country</label><br>
+	<input type="checkbox" id="EDM" name="EDM" value="EDM">
+	<label for="EDM">EDM</label><br>
+</div>
+
+
+<!--  –––––––––––––––––––––– YEAR DDOWN –––––––––––––––––––––– -->
+
+
+<select name="year" class="ddown" id = "year">
+
+</select>
+<br><br>
+
+
+<!--  –––––––––––––––––––––– GENRE SELECTION BOXES –––––––––––––––––––––– -->
+
+
+<div class = "check" id = "pop" style = "width: 340px; height: 340px;">
+	<br><br><br><br>Pop
+</div>
+<div class = "check" id = "rock" style = "width: 340px; height: 340px;">
+	<br><br><br><br>Rock
+</div>
+<div class = "check" id = "hiphop" style = "width: 340px; height: 340px">
+	<br><br><br><br>Hip Hop
+</div>
+<div class = "check" id = "classical" style = "width: 340px; height: 340px;">
+	<br><br><br><br>Classical
+</div>
+</body>
+<script>
+
+/* ––––––––––––––––––––––––– GENRE DDOWN –––––––––––––––––––––––––––––– */
+
+	function show(){
+		if(document.getElementById("checkboxes").style.display === "none"){
+			document.getElementById("checkboxes").style.display = "block"
+		} 
+		else{
+			document.getElementById("checkboxes").style.display = "none"
+		}
+	}
+
+/* ––––––––––––––––––––––––– YEAR SELECT –––––––––––––––––––––––––––––– */
+
+	var sel = document.getElementById('year');
+	for(i=1990; i<2021; i++){
+		var opt = document.createElement('option');
+		opt.appendChild( document.createTextNode(i));
+		opt.value = i;
+		sel.appendChild(opt); 
+	}
+
+/* ––––––––––––––––––––––– GENRE SELECTION BOXES –––––––––––––––––––––––––––––– */
+
+	var pop = document.getElementById("pop")
+	pop.addEventListener("click", changeSizePop);
+	var rock = document.getElementById("rock")
+	rock.addEventListener("click", changeSizeRock);
+	var hiphop = document.getElementById("hiphop")
+	hiphop.addEventListener("click", changeSizeHipHop);
+	var classical = document.getElementById("classical")
+	classical.addEventListener("click", changeSizeClassical);
+	checked = []
+	function changeSizePop(){
+		if(pop.style.width === "340px"){
+			pop.style.width = "320px"
+			pop.style.height = "320px"
+			checked.push(pop.id)
+		}
+		else{
+			pop.style.width = "340px"
+			pop.style.height = "340px"
+			for(i=0; i<checked.length; i++){
+				if(checked[i]===pop.id){
+					checked.splice(i,1)
+				}
+			}
+		}
+		console.log(checked)
+	}
+	function changeSizeRock(){
+		if(rock.style.width === "340px"){
+			rock.style.width = "320px"
+			rock.style.height = "320px"
+			checked.push(rock.id)
+		}
+		else{
+			rock.style.width = "340px"
+			rock.style.height = "340px"
+			for(i=0; i<checked.length; i++){
+				if(checked[i]===rock.id){
+					checked.splice(i,1)
+				}
+			}
+		}
+		console.log(checked)
+	}
+	function changeSizeHipHop(){
+		if(hiphop.style.width === "340px"){
+			hiphop.style.width = "320px"
+			hiphop.style.height = "320px"
+			checked.push(hiphop.id)
+		}
+		else{
+			hiphop.style.width = "340px"
+			hiphop.style.height = "340px"
+			for(i=0; i<checked.length; i++){
+				if(checked[i]===hiphop.id){
+					checked.splice(i,1)
+				}
+			}
+		}
+		console.log(checked)
+	}
+	function changeSizeClassical(){
+		if(classical.style.width === "340px"){
+			classical.style.width = "320px"
+			classical.style.height = "320px"
+			checked.push(classical.id)
+		}
+		else{
+			classical.style.width = "340px"
+			classical.style.height = "340px"
+			for(i=0; i<checked.length; i++){
+				if(checked[i]===classical.id){
+					checked.splice(i,1)
+				}
+			}
+		}
+		console.log(checked)
+	}
+</script>
+</html>

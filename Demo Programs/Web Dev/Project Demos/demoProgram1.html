@@ -17,22 +17,18 @@
 			position: fixed;
 		}
 		#checkboxes{
-			display: none;
 			border: 1px solid black;
 			width: 10%;
 			padding: 10px;
 			position: fixed;
 			background-color: white;
 		}
-		#checkboxes:hover{
-			display: block;
-		}
 	</style>
 </head>
 <body>
 <button onclick = "show()">Choose an Animal:</button>
 <button onclick = "selectedVal()">Choose</button>
-<div id = "checkboxes">
+<div id = "checkboxes" style="display: none;">
   <input type="checkbox" id="Cat" value="Cat">Cat<br>
   <input type="checkbox" id="Dog" value="Dog">Dog<br>
 </div>
