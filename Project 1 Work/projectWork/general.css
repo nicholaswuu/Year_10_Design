@@ -1,0 +1,133 @@
+body{
+	background-color: black;
+	font-family: roboto;
+	color: white;
+}
+input{
+	color: white;
+}
+.grid {
+	align-items: center;
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	grid-gap: 12px;
+	padding: 20px;
+}
+
+.grid > div {
+	text-align: center;
+	font-size: 30px;
+	width: 341px;
+	height: 341px;
+	background-size: cover;
+	text-align: center;
+	color: white;
+	opacity: 70%;
+	font-weight: bold;
+	transition-duration: 0.2s;
+}
+.grid > div:hover{
+	cursor: pointer;
+	opacity: 100%
+}
+#title{
+	font-weight: bold;
+	text-align: center;
+	padding-top: 10px
+	padding-bottom: 0px;
+	font-size: 45px;
+}
+#subtitle{
+	text-align: center;
+	padding-bottom: 10px;
+	font-size: 30px;
+	font-weight: lighter;
+}
+#pop{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.teenstarcompetition.co.uk/wp-content/uploads/2020/04/Easy-songs-to-sing-that-sound-impressive--e1587138125666.jpeg);
+}
+#hip-hop{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://flypaper.soundfly.com/wp-content/uploads/2018/09/uzi-vert-facebook.jpg);
+	background-position: center right;
+}
+#rock{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.thousandfoldecho.com/wp-content/uploads/2017/09/musician-2708190_1280-860x450.jpg);
+}
+#classical{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.mta.ca/uploadedImages/Community/Academics/Faculty_of_Arts/Music/Ensembles/Chamber_Orchestra/IMG_2865_lowres.jpg);
+	background-position: center 70%;
+}
+#jazz{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://images.unsplash.com/photo-1597355404305-7112c26fda49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);
+}
+#edm{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.jmcacademy.edu.au/getattachment/News/The-History-of-EDM/edm800300.gif.aspx);
+	background-position: center;
+}
+#country{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.traveldailymedia.com/assets/2019/12/country-music.jpg);
+	background-position: left;
+}
+#r-n-b{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/28707/article_full%401x.jpg);
+	background-position: center 70%;
+}
+.button{
+	cursor: pointer;
+	background-color: black;
+	font-size: 25px;
+	color: white;
+	border: 2px solid white;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 20px;
+	width: 100%;
+	height: 75px;
+}
+.button:hover{
+	color: black;
+	background-color: white;
+	transition-duration: 0.1s;
+}
+#parameters{
+	width: 95%;
+	background-color: #111111;
+	margin: 20px;
+	padding: 10px;
+}
+.genres{
+	width: 150px;
+	margin: 10px;
+}
+#results{
+	font-size: 10px;
+	line-height: 30px;
+}
+.chip{
+	background-color: #4d4d4d;
+	color: white;
+}
+.chip:hover{
+	background-color: #595959;
+}
+.chip:active{
+	background-color: #6c6c6c;
+}
+.artists{
+	width: 250px;
+	top: -4px;
+	margin: 10px;
+	overflow: auto;
+	text-align: left;
+	white-space: nowrap;
+}
+.chips .input{
+	color: white;
+}
+.years{
+	width: 100px;
+	margin: 10px;
+}
+#submit{
+	color: #eeeeee;
+}

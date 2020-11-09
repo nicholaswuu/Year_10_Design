@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel= "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel = "stylesheet" href="general.css">
+		<title>Chart Finder</title>
+	</head>
+	<body onload = "yearOptions()">
+	<center>
+		<div id = "parameters" class = "valign-wrapper">
+			<div class="input-field col s12 genres">
+			 	<select multiple>
+					<option value="" disabled unselected>Genres</option>
+					<option value="pop">Pop</option>
+					<option value="hip-hop">Hip hop</option>
+					<option value="rock">Rock</option>
+					<option value="jazz">Jazz</option>
+			    </select>
+			</div>
+
+
+			<!-- ––––––––––––––––––––––––- SEARCH BAR –––––––––––––––––––––––– -->
+
+	 		<div class="chips chips-autocomplete artists">
+				<input placeholder="Artists...">
+			</div>
+
+
+			<!--  –––––––––––––––––––––– YEAR DDOWN –––––––––––––––––––––– -->
+			<div class="input-field col s12 years">
+				<select name = "year1" id = "year1">
+					<option value="" disabled selected>Year</option>
+					<option value = "all">Any</option>
+					<option value = ">1950">>1950</option>
+				</select>
+			</div>
+			<div class="input-field col s12 years">
+				<select name = "year2" id = "year2">
+					<option value="" disabled selected>Year</option>
+					<option value = "all">Any</option>
+					<option value = ">1950">>1950</option>
+				</select>
+			</div>
+
+
+			  <a class="waves-effect waves-light btn-flat" id = "submit" onclick="submit()">Submit</a>
+		</div>
+	</center>
+		<br><br>
+
+		<div id = "test1"></div>
+
+		<div id = "results"></div>
+
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			options = []
+		    var elems = document.querySelectorAll('select');
+		    var instances = M.FormSelect.init(elems, options);
+		  });
+		document.addEventListener('DOMContentLoaded', function() {
+			options = {
+			limit: Infinity,
+			}
+			   var elems = document.querySelectorAll('.chips');
+			   var instances = M.Chips.init(elems, options);
+			 });
+			 var chip = {
+			   tag: 'chip content',
+			   image: '', //optional
+			 };
+		</script>
+		<script src = "general.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	</body>
+</html>
