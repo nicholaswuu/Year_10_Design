@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Search Songs
+</title>
+<input type="text" id="generalSearch" placeholder="Search.." title="General">
+<input type="text" id="albumSearch" placeholder="Search album.." title="Album">
+<input type="text" id="artistSearch" placeholder="Search artist.." title="Artist">
+<input type="text" id="yearSearch" placeholder="Search year.." title="Year">
+<input type="text" id="genreSearch" placeholder="Search genre.." title="Genre">
+<select name="type" id="typeSelection">
+	<option value="album">Album</option>
+	<option value="artist">Artist</option>
+	<option value="track">Track</option>
+	<option value="playlist">Playlist</option>
+</select>
+<button onclick="search()">Search</button>
+<br>
+
+<ul id="results">
+
+</ul>
+</div>
+</head>
+<body>
+
+<script>
+
+const access_token = "BQBEYHa3MNSN4TuSWiq3q6k64VW8Gfc4Vfx4M1g6Hw5UFojTTiVrpJauJDYJHbU_ncg0BQQBBtNGkNNcYP35-kuP2_gcv6hMCRX7AOoVZc-wJ4wof7V-hszPQSUxuX1W_V13gfnbLQ1gSotlQTR7kAnCbZOXYbW-DXCn6w";
+
+function getFrom(parameters, type) {
+	general = parameters.general;
+	album = parameters.album;
+	artist = parameters.artist;
+	year = parameters.year;
+	genre = parameters.genre;
+	var base = "https://api.spotify.com/v1/search?q=";
+	var first = true;
+	if(general!=""){
+		base += general;
+		first = false;
+	}
+	if(album!=""){
+		if(first==true){
+			base+="album%3A"+album;
+			first = false;
+		}else{
+			base+="%20album%3A"+album;
+		}
+	}
+	if(artist!=""){
+		if(first==true){
+			base+="artist%3A"+artist;
+			first = false;
+		}else{
+			base+="%20artist%3A"+artist;
+		}
+	}
+	if(year!=""){
+		if(first==true){
+			base+="year%3A"+year;
+			first = false;
+		}else{
+			base+="%20year%3A"+year;
+	}
+	}
+	if(genre!=""){
+		if(first==true){
+			base+="genre%3A"+genre;
+			first = false;
+		}else{
+			base+="%20genre%3A"+genre;
+		}
+	}
+	base+="&type="+type;
+	base+="&limit=50"
+	return fetch(base, {headers:{"Authorization":"Bearer "+access_token}})
+	 .then((resp) => resp.json()) // Transform the data into json
+	 .then(function(data) {
+	  return data;
+	 });
+}
+
+function display(parameters, type){
+	getFrom(parameters, type).then(function(result) {
+	// console.log(result);
+	var items;
+	if(type=="album"){
+		items = result.albums.items;
+		for (item of items){
+			var node = document.createElement("LI");
+			var img = document.createElement('img');
+			img.src = item.images[0].url;
+			img.height = 50;
+			img.width = 50;
+			var textnode = document.createTextNode("Album Name: " + item.name +
+			" | Artist: " + item.artists[0].name+
+			" | Released: " + item.release_date+
+			" | Tracks: " + item.total_tracks);
+			node.appendChild(img);
+			node.appendChild(textnode);
+			document.getElementById("results").appendChild(node);
+		}
+	}else if(type=="artist"){
+		items = result.artists.items;
+		for (item of items){
+			var node = document.createElement("LI");
+			var img = document.createElement('img');
+			img.src = item.images[0].url;
+			img.height = 50;
+			img.width = 50;
+			var textnode = document.createTextNode("Artist Name: " + item.name +
+			" | Popularity: " + item.popularity+
+			" | Followers: "+item.followers.total +
+			" | Genres: " + item.genres.toString());
+			node.appendChild(img);
+			node.appendChild(textnode);
+			document.getElementById("results").appendChild(node);
+		}
+	}else if(type=="track"){
+		items = result.tracks.items;
+		for (item of items){
+			var node = document.createElement("LI");
+			var img = document.createElement('img');
+			img.src = item.album.images[0].url;
+			img.height = 50;
+			img.width = 50;
+			var textnode = document.createTextNode("Track Name: " + item.name +
+			" | Artist: " + item.artists[0].name +
+			" | Popularity: " + item.popularity+
+			" | Duration: "+Math.floor(item.duration/1000)+"s" +
+			" | Album: " + item.album.name);
+			node.appendChild(img);
+			node.appendChild(textnode);
+			document.getElementById("results").appendChild(node);
+		}
+	}else if(type=="playlist"){
+		items = result.playlists.items;
+		for (item of items){
+			var node = document.createElement("LI");
+			var img = document.createElement('img');
+			img.src = item.images[0].url;
+			img.height = 50;
+			img.width = 50;
+			var textnode = document.createTextNode("Playlist Name: " + item.name + " | Description: " + item.description + " | Tracks: "+item.tracks.total)
+			node.appendChild(img);
+			node.appendChild(textnode);
+			document.getElementById("results").appendChild(node);
+	}
+}
+
+});
+}
+
+
+function search(){
+	var general = document.getElementById("generalSearch").value;
+	var album = document.getElementById("albumSearch").value;
+	var artist = document.getElementById("artistSearch").value;
+	var year = document.getElementById("yearSearch").value;
+	var genre = document.getElementById("genreSearch").value;
+	var type = document.getElementById("typeSelection").value;
+	var parameters = {
+		"general": general,
+		"album": album,
+		"artist": artist,
+		"year": year,
+		"genre": genre
+	}
+
+	display(parameters, type);
+}
+
+</script>
+
+</body>
+</html>
