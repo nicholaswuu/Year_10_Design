@@ -3,8 +3,19 @@ body{
 	font-family: roboto;
 	color: white;
 }
+button:focus{
+	background-color: black;
+	color: white;
+}
 input{
 	color: white;
+}
+a{
+	color: #555555;
+}
+a:hover{
+	color: white;
+	transition-duration: 0.1s;
 }
 .grid {
 	align-items: center;
@@ -13,7 +24,6 @@ input{
 	grid-gap: 12px;
 	padding: 20px;
 }
-
 .grid > div {
 	text-align: center;
 	font-size: 30px;
@@ -90,10 +100,11 @@ input{
 	transition-duration: 0.1s;
 }
 #parameters{
-	width: 95%;
-	background-color: #111111;
+	width: 62%;
+	background-color: #1a1a1a;
 	margin: 20px;
 	padding: 10px;
+	justify-content: center;
 }
 .genres{
 	width: 150px;
@@ -110,16 +121,19 @@ input{
 .chip:hover{
 	background-color: #595959;
 }
-.chip:active{
-	background-color: #6c6c6c;
-}
 .artists{
-	width: 250px;
+	width: 300px;
 	top: -4px;
 	margin: 10px;
 	overflow: auto;
 	text-align: left;
 	white-space: nowrap;
+}
+.artists:hover{
+	background-color: #222222;
+}
+.chips{
+	padding-left: 8px;
 }
 .chips .input{
 	color: white;
@@ -129,5 +143,52 @@ input{
 	margin: 10px;
 }
 #submit{
-	color: #eeeeee;
+	color: #e83a3a;
+	margin-left: 15px;
+	font-size: 16px;
+}
+table{
+	width: 95%;
+	border-collapse: collapse;
+}
+th, td {
+  	border-bottom: 1px solid #333333;
+  	padding: 12px;
+ 	text-align: left;
+ 	font-size: 15px;
+ 	overflow: hidden;
+ 	max-width: 10px;
+}
+th{
+	color: #555555;
+	font-weight: lighter;
+}
+tr:hover{
+	background-color: #222222;
+}
+#thead:hover{
+	background-color: black;
+}
+/* MATERIALIZE CUSTOMIZATION */
+
+.dropdown-content li>span{
+	color: #ff6b6b;
+}
+.select-wrapper .caret{
+	fill: white;
+}
+.chips.focus{
+	border-bottom: 1px solid white;
+	box-shadow: none;
+	background-color: #252525;
+}
+.chip:focus{
+	background-color: #d83a3a;
+}
+.select-wrapper input.select-dropdown:focus{
+	border-bottom: 1px solid white;
+}
+[type="checkbox"]:checked+span:not(.lever):before{
+	border-right: 2px solid crimson;
+	border-bottom: 2px solid crimson;
 }
