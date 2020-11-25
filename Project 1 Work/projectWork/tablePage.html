@@ -7,7 +7,7 @@
 		<link rel = "stylesheet" href="general.css">
 		<title>Chart Finder</title>
 	</head>
-	<body onload = "yearOptions()">
+	<body onload = "landingPageParameters()">
 		<center>
 			<div id = "parameters" class = "valign-wrapper">
 
@@ -24,6 +24,13 @@
 						<option value="edm">EDM</option>
 						<option value="country">Country</option>
 						<option value="r-n-b">R&B</option>
+						<option value="romance">Romance</option>
+						<option value="indie">Indie</option>
+						<option value="k-pop">K-Pop</option>
+						<option value="latin">Latin</option>
+						<option value="reggae">Reggae</option>
+						<option value="dubstep">Dubstep</option>
+						<option value="world-music">World</option>
 				    </select>
 
 				</div>
@@ -37,23 +44,39 @@
 
 
 				<!--  –––––––––––––––––––––––– YEAR DDOWN ––––––––––––––––––––––––– -->
-				<div class="input-field col s12 years">
+				<div class="tooltipped input-field col s12 ddown1" data-position="bottom" data-tooltip="Oldest Released: ">
 					<select name = "year1" id = "year1">
-						<option value="" disabled selected>Year</option>
-						<option value = "all">Any</option>
+						<option value="" disabled selected>Oldest</option>
+						<option value ="">Any</option>
 					</select>
 				</div>
-				<div class="input-field col s12 years">
+				–
+				<div class="tooltipped input-field col s12 ddown2" data-position="bottom" data-tooltip="Newest Released: ">
 					<select name = "year2" id = "year2">
-						<option value="" disabled selected>Year</option>
-						<option value = "all">Any</option>
+						<option value="" disabled selected>Newest</option>
+						<option value ="">Any</option>
 					</select>
 				</div>
 
-				<!-- –––––––––––––––––––––––––––– TABLE –––––––––––––––––––––––––––– -->
+				<!-- ––––––––––––––––––––––––––– DURATION SELECT ––––––––––––––––––––––––– -->
+
+				<div class="tooltipped input-field col s12 ddown1" data-position="bottom" data-tooltip="Minimum Duration: ">
+					<select name = "time1" id = "time1">
+						<option value="" disabled selected>Shortest</option>
+						<option value = "">Any</option>
+					</select>
+				</div>
+				–
+				<div class="tooltipped input-field col s12 ddown2" data-position="bottom" data-tooltip="Maximum Duration: ">
+					<select name = "time2" id = "time2">
+						<option value="" disabled selected>Longest</option>
+						<option value ="">Any</option>
+					</select>
+				</div>
 
 				  <a class="waves-effect waves-light btn-flat" id = "submit" onclick="submit()">Submit</a>
 			</div>
+			<table id = "results"></table>
 		</center>
 		<script src = "general.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

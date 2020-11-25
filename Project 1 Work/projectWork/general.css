@@ -27,8 +27,8 @@ a:hover{
 .grid > div {
 	text-align: center;
 	font-size: 30px;
-	width: 341px;
-	height: 341px;
+	width: 340px;
+	height: 340px;
 	background-size: cover;
 	text-align: center;
 	color: white;
@@ -53,35 +53,67 @@ a:hover{
 	font-size: 30px;
 	font-weight: lighter;
 }
+#new-release{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://i.pinimg.com/originals/48/db/a4/48dba47a8d6813e5f73ef8a4d7c6532f.png);
+	background-position: center 70%;
+}
 #pop{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.teenstarcompetition.co.uk/wp-content/uploads/2020/04/Easy-songs-to-sing-that-sound-impressive--e1587138125666.jpeg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.teenstarcompetition.co.uk/wp-content/uploads/2020/04/Easy-songs-to-sing-that-sound-impressive--e1587138125666.jpeg);
 }
 #hip-hop{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://flypaper.soundfly.com/wp-content/uploads/2018/09/uzi-vert-facebook.jpg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://flypaper.soundfly.com/wp-content/uploads/2018/09/uzi-vert-facebook.jpg);
 	background-position: center right;
 }
 #rock{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.thousandfoldecho.com/wp-content/uploads/2017/09/musician-2708190_1280-860x450.jpg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.thousandfoldecho.com/wp-content/uploads/2017/09/musician-2708190_1280-860x450.jpg);
 }
 #classical{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.mta.ca/uploadedImages/Community/Academics/Faculty_of_Arts/Music/Ensembles/Chamber_Orchestra/IMG_2865_lowres.jpg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.mta.ca/uploadedImages/Community/Academics/Faculty_of_Arts/Music/Ensembles/Chamber_Orchestra/IMG_2865_lowres.jpg);
 	background-position: center 70%;
 }
 #jazz{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://images.unsplash.com/photo-1597355404305-7112c26fda49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://images.unsplash.com/photo-1597355404305-7112c26fda49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);
 }
 #edm{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.jmcacademy.edu.au/getattachment/News/The-History-of-EDM/edm800300.gif.aspx);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.jmcacademy.edu.au/getattachment/News/The-History-of-EDM/edm800300.gif.aspx);
 	background-position: center;
 }
 #country{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://www.traveldailymedia.com/assets/2019/12/country-music.jpg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.traveldailymedia.com/assets/2019/12/country-music.jpg);
 	background-position: left;
 }
 #r-n-b{
-	background-image: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/28707/article_full%401x.jpg);
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/28707/article_full%401x.jpg);
 	background-position: center 70%;
 }
+#romance{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://miro.medium.com/max/5400/1*VcHVCyRSAOF3V6Ldi0iXOQ.jpeg);
+	background-position: center;
+}
+#indie{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://images.unsplash.com/photo-1585993710444-aad7a0016901?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80);
+	background-position: center;
+}
+#k-pop{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://d3vov59dtog46z.cloudfront.net/wp-content/uploads/2017/12/23090002/South-korea-banner-825x385.jpg);
+	background-position: left;
+}
+#latin{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://www.worldatlas.com/upload/c6/3b/de/shutterstock-255106795.jpg);
+	background-position: center 70%;
+}
+#reggae{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://c.files.bbci.co.uk/6C73/production/_104536772_bob_getty.jpg);
+	background-position: center 70%;
+}
+#dubstep{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://i.ytimg.com/vi/Y0Ub2EfHjBU/maxresdefault.jpg);
+	background-position: center 70%;
+}
+#world-music{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://dujye7n3e5wjl.cloudfront.net/photographs/1080-tall/time-100-influential-photos-william-anders-nasa-earthrise-62.jpg);
+}
+
 .button{
 	cursor: pointer;
 	background-color: black;
@@ -100,10 +132,12 @@ a:hover{
 	transition-duration: 0.1s;
 }
 #parameters{
-	width: 62%;
+	width: 75%;
 	background-color: #1a1a1a;
-	margin: 20px;
+	margin: 40px;
 	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 	justify-content: center;
 }
 .genres{
@@ -138,7 +172,12 @@ a:hover{
 .chips .input{
 	color: white;
 }
-.years{
+.ddown1{
+	width: 100px;
+	margin: 10px;
+	margin-left: 20px;
+}
+.ddown2{
 	width: 100px;
 	margin: 10px;
 }
