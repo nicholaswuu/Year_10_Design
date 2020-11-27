@@ -67,7 +67,7 @@ function landingPageParameters(){
 	genreSel = document.getElementById('genres')
 	genre = []
 	artists = []
-	range = []
+	yearRange = ""
 	for(i=0; i<check.length; i++){
 		for (j=0; j<genreSel.options.length; j++) {
 			if(check[i] === genreSel.options[j].value){
@@ -96,23 +96,23 @@ function yearAndDurationOptions(){
 		opt2year.value = i;
 		sel2year.add(opt2year);  
 	}
-	sel1duration = document.getElementById('time1');
-	sel2duration = document.getElementById('time2');
-	for(i=1; i<31; i++){
-		minutes = Math.floor(i/2)
-		seconds = Math.floor(i%2*30)
-		if(seconds === 0){
-			seconds = "00";
-		}
-		opt1duration = document.createElement('option');
-		opt1duration.text = minutes + ":" + seconds;
-		opt1duration.value = i;
-		sel1duration.add(opt1duration);
-		opt2duration = document.createElement('option');
-		opt2duration.text = minutes + ":" + seconds;
-		opt2duration.value = i;
-		sel2duration.add(opt2duration);  
-	}
+	// sel1duration = document.getElementById('time1');
+	// sel2duration = document.getElementById('time2');
+	// for(i=1; i<31; i++){
+	// 	minutes = Math.floor(i/2)
+	// 	seconds = Math.floor(i%2*30)
+	// 	if(seconds === 0){
+	// 		seconds = "00";
+	// 	}
+	// 	opt1duration = document.createElement('option');
+	// 	opt1duration.text = minutes + ":" + seconds;
+	// 	opt1duration.value = i;
+	// 	sel1duration.add(opt1duration);
+	// 	opt2duration = document.createElement('option');
+	// 	opt2duration.text = minutes + ":" + seconds;
+	// 	opt2duration.value = i;
+	// 	sel2duration.add(opt2duration);  
+	// }
 	elems = document.querySelectorAll('select');
 	instances = M.FormSelect.init(elems, options);
 }
@@ -141,41 +141,36 @@ function submit(){
 		text = text.substring(0, text.length-5)
 		artists.push(text)
 	}
-	year1 = document.getElementById("year1");
-	year2 = document.getElementById("year2");
-	value1 = parseInt(year1.options[year1.selectedIndex].value);
-	value2 = parseInt(year2.options[year2.selectedIndex].value);
-	range = []
-	for(i=value1; i<value2+1; i++){
-		range.push(i)
-	}
-	time1 = document.getElementById("time1")
-	time2 = document.getElementById("time2")
-	timevalue1 = parseInt(time1.options[time1.selectedIndex].value)*30000;
-	timevalue2 = parseInt(time2.options[time2.selectedIndex].value)*30000;
+	year1 = document.getElementById("year1").options[document.getElementById("year1").selectedIndex].value
+	year2 = document.getElementById("year2").options[document.getElementById("year2").selectedIndex].value
+	yearRange = year1 + "-" + year2
+	// time1 = document.getElementById("time1")
+	// time2 = document.getElementById("time2")
+	// timevalue1 = parseInt(time1.options[time1.selectedIndex].value)*30000;
+	// timevalue2 = parseInt(time2.options[time2.selectedIndex].value)*30000;
 	loopParameters()
 }
-function loopParameters(){
+async function loopParameters(){
+	console.log(yearRange)
 	for(i=0; i<Math.max(genre.length, 1); i++){
 		for(j=0; j<Math.max(artists.length, 1); j++){
-			for(k=0; k<Math.max(range.length, 1); k++){
 				if(genre[i]===undefined){
 					genre[i] = [""]
 				}
 				if(artists[j]===undefined){
 					artists = [""]
 				}
-				if(range[k]===undefined){
-					range = [""]
+				if(yearRange.length < 9){
+					yearRange = ""
 				}
 				parameters = {
 					"artist": artists[j],
 					"genre": genre[i],
-					"year": range[k],
+					"year": yearRange,
 					// "duration_ms": timevalue1+"-"+timevalue2
 				}
-				addToList(parameters, "track")
-			}
+				await addToList(parameters, "track")
+				console.log(songList)
 		}
 	}
 	tableStructure()
@@ -226,7 +221,7 @@ function tableStructure(){
 
 /* ––––––––––––––––––––––––––––––––– SPOTIFY API –––––––––––––––––––––––––––––––– */
 
-const access_token = ""//INSERT ACCESS TOKEN;
+const access_token = ""; //INSERT TOKEN HERE
 
 function getFrom(parameters, type) {
 	currentartist = parameters.artist;
@@ -276,15 +271,13 @@ function getFrom(parameters, type) {
 	 })
 }
 songList = []
-function addToList(parameters, type){
-	getFrom(parameters, type).then(function(result) {
+async function addToList(parameters, type){
+	await getFrom(parameters, type).then(function(result) {
 		items = result.tracks.items;
 		for(item of items){
 			songList.push(item)
 		}
-		console.log(songList)
-	})//PROBLEM HERE SOMEWHERE
-	console.log(songList)
+	})
 }
 function GetSortOrder(prop) { 
     return function(a, b) {
@@ -299,9 +292,8 @@ function GetSortOrder(prop) {
 function display(){
 	items = songList
 	items.sort(GetSortOrder("popularity"))
-	items.slice(0,50)
+	items = items.slice(0,50)
 	for (item of items){
-		console.log("hi")
 		row = table.insertRow()
 		playCell = row.insertCell(0)
 		playLink = document.createElement("a")

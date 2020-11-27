@@ -45,12 +45,13 @@ a:hover{
 	text-align: center;
 	padding-top: 10px
 	padding-bottom: 0px;
-	font-size: 45px;
+	font-size: 50px;
 }
 #subtitle{
 	text-align: center;
 	padding-bottom: 10px;
-	font-size: 30px;
+	margin-top: 0px;
+	font-size: 24px;
 	font-weight: lighter;
 }
 #new-release{
@@ -113,7 +114,9 @@ a:hover{
 #world-music{
 	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(https://dujye7n3e5wjl.cloudfront.net/photographs/1080-tall/time-100-influential-photos-william-anders-nasa-earthrise-62.jpg);
 }
-
+#funk{
+	background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("https://www.liveabout.com/thmb/F62nHcgzbEqx3gvUdgFIfWE6DiA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-579175664-59b30c26396e5a0010532c36.jpg");
+}
 .button{
 	cursor: pointer;
 	background-color: black;
@@ -132,7 +135,7 @@ a:hover{
 	transition-duration: 0.1s;
 }
 #parameters{
-	width: 75%;
+	width: 65%;
 	background-color: #1a1a1a;
 	margin: 40px;
 	padding: 10px;
