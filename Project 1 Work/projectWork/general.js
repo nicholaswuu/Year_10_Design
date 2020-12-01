@@ -1,10 +1,14 @@
 /* –––––––––––––––––––––––––––––––– GENRE SELECTION BOXES ––––––––––––––––––––––––––––––––– */
 
-genres = document.getElementsByClassName("check");
-for (genre of genres){
-	genre.addEventListener("click", changeSize);
-}
 check = []
+
+function genreOnClick(){
+	genres = document.getElementsByClassName("check");
+	for (genre of genres){
+		genre.addEventListener("click", changeSize);
+	}
+}
+
 function changeSize(){
 	if(this.checked != true){
 		this.style.width = "320px"
@@ -57,7 +61,6 @@ chip = {
 /* –––––––––––––––––––––––––– PARAMETERS FROM LANDING PAGE –––––––––––––––––––––––– */
 
 function landingPageParameters(){
-	yearAndDurationOptions()
 	queryString = decodeURIComponent(window.location.search);
 	queryString = queryString.substring(1);
 	queries = queryString.split("&");
@@ -76,7 +79,7 @@ function landingPageParameters(){
 			}
 		}
 	}
-	console.log(genre)
+	yearAndDurationOptions()
 	loopParameters()
 }
 
@@ -151,17 +154,20 @@ function submit(){
 	loopParameters()
 }
 async function loopParameters(){
-	console.log(yearRange)
+	songList = []
 	for(i=0; i<Math.max(genre.length, 1); i++){
 		for(j=0; j<Math.max(artists.length, 1); j++){
 				if(genre[i]===undefined){
-					genre[i] = [""]
+					genre = [""]
 				}
 				if(artists[j]===undefined){
 					artists = [""]
 				}
 				if(yearRange.length < 9){
 					yearRange = ""
+				}
+				if(genre[0] === "" && artists[0] === "" && yearRange === ""){
+					alert("Please Select Parameters!")
 				}
 				parameters = {
 					"artist": artists[j],
@@ -170,7 +176,6 @@ async function loopParameters(){
 					// "duration_ms": timevalue1+"-"+timevalue2
 				}
 				await addToList(parameters, "track")
-				console.log(songList)
 		}
 	}
 	tableStructure()
@@ -270,7 +275,6 @@ function getFrom(parameters, type) {
 	 	return data;
 	 })
 }
-songList = []
 async function addToList(parameters, type){
 	await getFrom(parameters, type).then(function(result) {
 		items = result.tracks.items;
@@ -290,6 +294,9 @@ function GetSortOrder(prop) {
     }
 }
 function display(){
+	if(songList.length === 0){
+		alert("Please Enter Parameters")
+	}
 	items = songList
 	items.sort(GetSortOrder("popularity"))
 	items = items.slice(0,50)
