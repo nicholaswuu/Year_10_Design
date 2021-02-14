@@ -15,9 +15,8 @@
  
     </head>
 
-    <body >
+    <body onload="getData()">
             <h1 id="uid"></h1>
-            
             <!-- HERE IS YOUR HTML CODE TO SET TEXT -->
             <h3>A demonstration of how to "set" and "get" information in the database</h3>
 
@@ -29,6 +28,7 @@
 
             <button onclick = "setData()" >Set Data</button>
             <button onclick = "getData()" >Get data</button>
+            <button onclick = "deleteData()" >Delete data</button>
 
             <p>Current Data:</p>
 
@@ -44,7 +44,7 @@
 
         var provider = new firebase.auth.GoogleAuthProvider();
         var userId = document.getElementById("uid").innerHTML;
-        
+
         // Your web app's Firebase configuration that we copy-and-paste from 
         // the Firebase setup
         var config = {
@@ -121,7 +121,7 @@
 
             // Create a reference to a particular location or "node"
             // 'StudentInfo'is the name of the main branch in the database
-            var ref = database.ref('StudentInfo').orderByChild("mark").equalTo("20");;
+            var ref = database.ref('StudentInfo')
 
             // we will make reference to each 'value' of a database object which will have 
             // two helper functions latched "on" to it to perform additional tasks 
@@ -190,5 +190,10 @@
             console.log(err)
         }
 
+        function deleteData(){
+            var database = firebase.database();
+            var ref = database.ref('StudentInfo')
+            console.log(ref)
+        }
     </script>
 </html>
