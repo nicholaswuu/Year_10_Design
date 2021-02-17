@@ -7,7 +7,7 @@
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
 		<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
-	<title>Demo 2</title>
+	<title>Demo 2 - Authentication</title>
 	<style>
 		
 	</style>
@@ -15,7 +15,7 @@
 <body>
 
 <div id = "errorpage" style="display: none">
-	Error! Service is not configured for this user. Please use a UCC google account. 
+	<h1>Error! Service is not configured for this user. Please use a UCC google account. </h1>
 	<button onclick="signout()">Choose New Account</button>
 </div>
 <div id = "mainpage">
@@ -66,8 +66,10 @@
 			}
 		}
 		if(counter == 3){
+			var authLevel = "student"
 			document.getElementById("authLevel").innerHTML = "Student"
-		}else{
+		} else{
+			var authLevel = "admin"
 			document.getElementById("authLevel").innerHTML = "Admin"
 		}
     });
