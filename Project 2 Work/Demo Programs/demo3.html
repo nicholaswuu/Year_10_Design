@@ -1,8 +1,165 @@
 <html>
 <head>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<title>Demo 3 - Realtime Database Messages and Clubs</title>
 </head>
-<body>
+<body onload="getClubs()">
 
+	<div id = "errorpage" style="display: none">
+		<h1>Error! Service is not configured for this user. Please use a UCC google account. </h1>
+		<button onclick="signout()">Choose New Account</button>
+	</div>
+	<div id = "mainpage">
+		<h1 id = "uid"></h1>
+		<button onclick="signout()">Sign Out</button>
+		<br><br><br>
+
+		<input type="text" id="club" placeholder="Enter club name">
+		<input type="text" id="description" placeholder="Enter description">
+		<input type="text" id="topics" placeholder="Enter related topics">
+		<button onclick="addClub()">Add Club</button>
+		<ol id = "currentClubs"></ol>
+
+		<select id = "clubSel"></select>
+		<input type="text" id="message" placeholder="Enter message">
+		<button onclick="addMessage()">Post</button>
+		<ol id = "messages"></ol>
+	</div>
 </body>
+<script>
+
+	var provider = new firebase.auth.GoogleAuthProvider();
+
+	var config = {
+		apiKey: "AIzaSyCxbXxBCt_80VY5DD2PmeDisozQ8SJeXmg",
+		authDomain: "clubs-ucc.firebaseapp.com",
+		databaseURL: "https://clubs-ucc-default-rtdb.firebaseio.com",
+		projectId: "clubs-ucc",
+		storageBucket: "clubs-ucc.appspot.com",
+		messagingSenderId: "459045288881",
+		appId: "1:459045288881:web:8020bc2280fb1d2c6f1b90",
+		measurementId: "G-99QW8BQ8YT"
+	};
+
+	firebase.initializeApp(config);
+	firebase.auth().onAuthStateChanged(function(user){
+		if (user == null) {
+			var provider = new firebase.auth.GoogleAuthProvider();
+				firebase.auth().signInWithRedirect(provider).then(function(result) { 
+			window.location.replace("fbtest.html");
+		});
+		return;
+		} else {
+			userEmail = user.email;
+			userName = user.displayName;
+			document.getElementById("uid").innerHTML = userName; 
+		} 
+		if (userEmail.includes("@ucc.on.ca")){
+			mainpage = document.getElementById("mainpage");
+			mainpage.style.display = "block";
+		} else{
+			errorpage = document.getElementById("errorpage")
+			mainpage.style.display = "none";
+			errorpage.style.display = "block";
+		}
+	});
+
+	function signout(){
+		firebase.auth().signOut()
+	}
+
+	function getClubs() {
+		var database = firebase.database();
+		var ref = database.ref('Clubs')
+		ref.on('value', addClubOptions)
+	}
+
+	function addClubOptions(data){
+		var database = firebase.database();
+		var clubData = data.val(); 
+		var keys = Object.keys(clubData);
+		var sel = document.getElementById("clubSel")
+		sel.innerHTML = "";
+		currentClubs.innerHTML = ""
+		messages.innerHTML = ""
+		for (var i = 0; i < keys.length; i++){
+			var k = keys[i];
+			var clubName = k
+			var ref = database.ref('Clubs/'+k)
+			ref.on('value', displayData)
+			var ref = database.ref('Clubs/'+k+"/Messages")
+			ref.on('value', displayMessages)
+			var option = document.createElement("option");
+			option.text = k;
+			option.value = k;
+			sel.appendChild(option);
+		}
+	}
+
+	function displayData(data){
+		var clubData = data.val(); 
+		var keys = Object.keys(clubData);
+		var k = keys[0];
+		var name = clubData[k].name;
+		var description = clubData[k].description;
+		var topics = clubData[k].topics;
+		var entry = document.createElement('li');
+		entry.appendChild(document.createTextNode("Name: " + name + "; Description: "+description + "; Topics: "+topics));
+		currentClubs.appendChild(entry);
+	}
+
+	function addClub(){
+		var database = firebase.database();
+		var clubName = document.getElementById("club").value;
+		var clubDescription = document.getElementById("description").value;
+		var clubTopics = document.getElementById("topics").value;
+		var ref = database.ref("Clubs/"+clubName)
+
+		var data = {
+			name: clubName,
+			description: clubDescription,
+			topics: clubTopics
+		}
+		ref.push(data);
+	}
+
+	function addMessage(){
+		var database = firebase.database();
+		var clubName = document.getElementById("clubSel").value;
+		var ref = database.ref('Clubs/'+clubName+"/Messages")
+		var message = document.getElementById("message").value
+		var day = new Date().getDate()
+		var month = new Date().getMonth()+1
+		var year = new Date().getFullYear()
+		var date = month + "/" + day + "/" + year
+		var name = document.getElementById("uid").innerHTML
+		var data = {
+			message: message,
+			date: date,
+			name: name,
+			clubName: clubName
+		}
+		ref.push(data);
+	}
+
+	function displayMessages(data){
+		var clubData = data.val(); 
+		var keys = Object.keys(clubData);
+		for (i = 0; i < keys.length; i++) {
+			var k = keys[i]
+			var username = clubData[k].name;
+			var message = clubData[k].message;
+			var date = clubData[k].date;
+			var clubName = clubData[k].clubName;
+			var msgEntry = document.createElement('li');
+			msgEntry.appendChild(document.createTextNode("Club: "+ clubName + "; Name: " + username + "; Message: "+message + "; Date: "+date));
+			document.getElementById("messages").appendChild(msgEntry);
+		}
+	}
+
+</script>
 </html>
