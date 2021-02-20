@@ -125,6 +125,14 @@
 			topics: clubTopics
 		}
 		ref.push(data);
+
+		var ref2 = database.ref('Clubs/'+clubName+"/Members");
+		ref2.push({
+			name: "",
+			description: "",
+			topics: ""
+		});
+
 	}
 
 	function addMessage(){

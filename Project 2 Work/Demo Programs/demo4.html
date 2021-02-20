@@ -1,8 +1,160 @@
 <html>
 <head>
 	<title>Demo 4 - Joining and Leaving Clubs</title>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
-<body>
+<body onload="getClubs()">
 
+	<div id = "errorpage" style="display: none">
+		<h1>Error! Service is not configured for this user. Please use a UCC google account. </h1>
+		<button onclick="signout()">Choose New Account</button>
+	</div>
+	<div id = "mainpage">
+		<h1 id = "uid"></h1>
+		<button onclick="signout()">Sign Out</button>
+		<br><br><br>
+
+		<select id = "clubSel"></select>
+		<button onclick="join()">Join</button>
+		<button onclick = "leave()">Leave</button>
+		<ol id = "joinedClubs">Joined Clubs:</ol>
+	</div>
 </body>
+<script>
+	var cur_club = [];
+
+	var provider = new firebase.auth.GoogleAuthProvider();
+	var config = {
+		apiKey: "AIzaSyCxbXxBCt_80VY5DD2PmeDisozQ8SJeXmg",
+		authDomain: "clubs-ucc.firebaseapp.com",
+		databaseURL: "https://clubs-ucc-default-rtdb.firebaseio.com",
+		projectId: "clubs-ucc",
+		storageBucket: "clubs-ucc.appspot.com",
+		messagingSenderId: "459045288881",
+		appId: "1:459045288881:web:8020bc2280fb1d2c6f1b90",
+		measurementId: "G-99QW8BQ8YT"
+	};
+
+	firebase.initializeApp(config);
+	firebase.auth().onAuthStateChanged(function(user){
+		if (user == null) {
+			var provider = new firebase.auth.GoogleAuthProvider();
+				firebase.auth().signInWithRedirect(provider).then(function(result) { 
+			window.location.replace("fbtest.html");
+		});
+		return;
+		} else {
+			var uid = user.uid
+			var uemail = user.email
+			var uname = user.displayName
+			document.getElementById("uid").innerHTML = uname; 
+		} 
+		if (uemail.includes("@ucc.on.ca")){
+			mainpage = document.getElementById("mainpage");
+			mainpage.style.display = "block";
+		} else{
+			errorpage = document.getElementById("errorpage")
+			mainpage.style.display = "none";
+			errorpage.style.display = "block";
+		}
+	});
+
+	function signout(){
+		firebase.auth().signOut()
+	}
+
+	function getClubs() {
+		var database = firebase.database();
+		var ref = database.ref('Clubs')
+		joinedClubs = document.getElementById("joinedClubs")
+		joinedClubs.innerHTML = ""
+		ref.on('value', addClubOptions)
+		ref.on('value', gotJoined)
+	}
+
+	function addClubOptions(data){
+		var database = firebase.database();
+		var clubData = data.val(); 
+		var keys = Object.keys(clubData);
+		var sel = document.getElementById("clubSel")
+		sel.innerHTML = "";
+		for (var i = 0; i < keys.length; i++){
+			var k = keys[i];
+			var option = document.createElement("option");
+			option.text = k;
+			option.value = k;
+			sel.appendChild(option);
+		}
+	}
+
+	function gotJoined(data){
+		var database = firebase.database();
+		var clubData = data.val(); 
+		var keys = Object.keys(clubData);
+		for (i = 0; i < keys.length; i++){
+			var k = keys[i];
+			cur_club.push(k)
+			var ref = database.ref("Clubs/"+k+"/Members")
+			ref.on('value', showJoined)
+			cur_club = []
+		}
+	}
+
+	function showJoined(data){
+		var user = firebase.auth().currentUser;
+		var memberData = data.val(); 
+		var keys = Object.keys(memberData);
+		for (a = 1; a < keys.length; a++){
+			var k = keys[a];
+			if(user.uid == memberData[k].id){
+				var msgEntry = document.createElement('li');
+				msgEntry.appendChild(document.createTextNode(cur_club));
+				document.getElementById("joinedClubs").appendChild(msgEntry);
+			}
+		}
+	}
+
+	function join(){
+		var database = firebase.database();
+		var user = firebase.auth().currentUser;
+		var selectedClub = document.getElementById("clubSel").value;
+		var ref = database.ref('Clubs/'+selectedClub+"/Members");
+		var data = {
+			id: user.uid,
+			email: user.email,
+			name: user.displayName
+		}
+		ref.push(data);
+		getClubs()
+		console.log("joined")
+	}
+
+	function leave(){
+		var database = firebase.database();
+		var user = firebase.auth().currentUser;
+		var selectedClub = document.getElementById("clubSel").value;
+		var ref = database.ref('Clubs/'+selectedClub+"/Members");
+		ref.on('value', left)
+	}
+
+	function left(data){
+		var database = firebase.database();
+		var user = firebase.auth().currentUser;
+		var memberData = data.val(); 
+		var keys = Object.keys(memberData);
+		var selectedClub = document.getElementById("clubSel").value;
+		for (i = 0; i < keys.length; i++){
+			var k = keys[i];
+			if(user.uid == memberData[k].id){
+				var ref = database.ref('Clubs/'+selectedClub+"/Members/"+k)
+				ref.remove()
+			}
+		}
+		getClubs()
+	}
+</script>
 </html>
