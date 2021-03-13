@@ -1,0 +1,200 @@
+<html>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<style>
+	body{
+		background-color: #0b0e21;
+		font-family: "Roboto";
+		color: white;
+	}
+	p{
+		display: inline-block;
+		padding: 0 5px;
+	}
+	.errorpage{
+			display: none;
+			text-align: center;
+			padding: 40px;
+	}
+	.title{
+		color: white;
+		font-size: 36px;
+		font-weight: 600;
+		text-align: left;
+		padding: 40px;
+		padding-left: 60px;
+	}
+	.cards{
+		width: 280px;
+		background-color: #010310;
+		margin: 15px;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #28304b;
+		border-radius: 5px;
+		display: inline-block;
+		align-self: center;
+	}
+	.profile{
+		position: fixed;
+		font-size: 18px;
+		padding: 5 20px;
+		padding-right: 0px;
+		width: auto;
+		z-index: 1;
+		float: right;
+		right: 0px;
+	}
+	.button1{
+		color: red;
+		font-weight: 300;
+		margin-right: 10px;
+		padding: 0 10px;
+		z-index: 0;
+	}
+	.leave{
+		color: red;
+		font-weight: 300;
+		font-size: 16px;
+		margin-left: 30px;
+	}
+	.back{
+		color: #00dacf;
+		font-weight: 300;
+		margin-right: 30px;
+		font-size: 16px;
+		position: relative;
+	}
+	.message{
+		background-color: #192042;
+		width: 95%;
+		color: white;
+		padding: 20px;
+		margin-left: 30px;
+	}
+	.messageContent{
+		font-size: 25px;
+		padding: 20px;
+	}
+	.messageDate{
+		text-align: right;
+	}
+</style>
+<body onload="info()">
+
+	<div id = "errorpage" class = "errorpage">
+		<h4 class = "error">Error! Service is not configured for this user. Please use a UCC google account. </h4>
+		<button class = "button1 waves-effect waves-light btn-flat" onclick="signout()">Choose New Account</button>
+	</div>
+
+	<div id = "mainPage">
+		<div class = "col s12 m7 profile cards">
+			<p id = "uid"></p>
+			<button class = "button1 waves-effect waves-light btn-flat" onclick="signout()">Sign Out</button>
+		</div>
+
+		<div class = "title">
+			Messages - Club Name
+			<a class = "leave waves-effect waves-light btn-flat" onclick = "leave()">LEAVE</a>
+			<a class = "back waves-effect waves-light btn-flat" href="mainPage.html">BACK</a>
+		</div>
+		<div class = "message hoverable">
+			<div class = "messageHead">
+				Name
+			</div>
+			<div class = "messageContent">
+				Message Text
+			</div>
+			<div class = "messageDate">
+				Date
+			</div>
+		</div>
+	</div>
+</body>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script>
+		var provider = new firebase.auth.GoogleAuthProvider();
+
+	    var config = {
+	    	apiKey: "AIzaSyCxbXxBCt_80VY5DD2PmeDisozQ8SJeXmg",
+			authDomain: "clubs-ucc.firebaseapp.com",
+			databaseURL: "https://clubs-ucc-default-rtdb.firebaseio.com",
+			projectId: "clubs-ucc",
+			storageBucket: "clubs-ucc.appspot.com",
+			messagingSenderId: "459045288881",
+			appId: "1:459045288881:web:8020bc2280fb1d2c6f1b90",
+			measurementId: "G-99QW8BQ8YT"
+	    };
+
+	    firebase.initializeApp(config);
+	    firebase.auth().onAuthStateChanged(function(user){
+	        if (user == null) {
+	    		var provider = new firebase.auth.GoogleAuthProvider();
+	      		firebase.auth().signInWithRedirect(provider).then(function(result) { 
+	            window.location.replace("fbtest.html");
+	        });
+	        return;
+	        } else {
+	        	userEmail = user.email;
+	            userName = user.displayName;
+	        } 
+	        counter = 0
+			for (var i = 0; i<userEmail.length; i++){
+				if(userEmail[i]=="."){
+					counter = counter + 1
+				}
+			}
+	        if (userEmail.includes("@ucc.on.ca")){
+				if(counter == 3){
+					document.getElementById("uid").innerHTML = userName;
+					document.getElementById("mainPage").style.display = "block"
+				} else{
+					document.getElementById("uid").innerHTML = userName;
+					document.getElementById("mainPage").style.display = "block"
+				}
+	    	} else{
+		    	errorpage = document.getElementById("errorpage")
+		    	errorpage.style.display = "block";
+			}
+	    });
+
+		function signout(){
+			firebase.auth().signOut()
+		}
+
+		function info(){
+			queryString = decodeURIComponent(window.location.search);
+			queryString = queryString.substring(1);
+			console.log(queryString)
+		}
+
+		function leave(){
+			var database = firebase.database();
+			var user = firebase.auth().currentUser;
+			var selectedClub = document.getElementById("clubSel").value;
+			var ref = database.ref('Clubs/'+selectedClub+"/Members");
+			ref.on('value', left)
+		}
+
+		function left(data){
+			var database = firebase.database();
+			var user = firebase.auth().currentUser;
+			var memberData = data.val(); 
+			var keys = Object.keys(memberData);
+			var selectedClub = document.getElementById("clubSel").value;
+			for (i = 0; i < keys.length; i++){
+				var k = keys[i];
+				if(user.uid == memberData[k].id){
+					var ref = database.ref('Clubs/'+selectedClub+"/Members/"+k)
+					ref.remove()
+				}
+			}
+		}
+	</script>
+</html>

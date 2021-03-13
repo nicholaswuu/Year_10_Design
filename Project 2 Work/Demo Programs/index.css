@@ -1,0 +1,75 @@
+body{
+	background-color: #0b0e21;
+}
+.title{
+	color: white;
+	font-size: 36px;
+	font-weight: 600;
+	text-align: center;
+	padding:30px;
+}
+.col{
+	width: 300px;
+	background-color: #010310;
+	margin: 20px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #28304b;
+	border-radius: 5px
+}
+.card .card-content{
+	padding-top: 15px;
+}
+.card .card-content .card-title{
+	margin-bottom: 12px;
+	font-weight: 400;
+	color: white;
+}
+.card{
+	background-color: #010310;
+	border-width: 20px;
+	border-color: white;
+	margin: 0px;
+}
+.card-image{
+	height: 120px;
+	overflow: hidden;
+}
+.card-content{
+	text-align: center;
+	background-color: #010310;
+	color: #9299b2;
+}		
+.card-action{
+	text-align: center;
+}
+.chip{
+	cursor: default;
+	background-color: #010310;
+	border-color: #28304b;
+	color: white;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 9px;
+	height: 20px;
+	line-height: 18px;
+	margin-left: 8px;
+	margin-right: 0px;
+	padding-left: 5px;
+	font-weight: 300;
+}
+.chip:hover{
+	background-color: #1a1c28;
+}
+.business{
+	color: #9900ff;
+}
+.science{
+	color: #00dacf
+}
+.topic{
+	float: left;
+	font-size: 30px;
+	padding-right: 10px;
+	line-height: 12px;
+}
